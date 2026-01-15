@@ -44,7 +44,7 @@
         <td>
           <v-btn icon="mdi-pencil" variant="text" class="text-deep-purple-lighten-4"/>
           <v-btn icon="mdi-delete" variant="text" class="text-red"/>
-          <v-btn icon="mdi-information" variant="text" class="text-blue"/>
+          <v-btn icon="mdi-information" variant="text" class="text-blue" @click="fetchProduct(item.id)"/>
         </td>
       </tr>
     </tbody>
@@ -62,11 +62,22 @@ async function fetchProducts() {
     try {
       const response = await api.get('/products')
       desserts.value = response.data
-      console.log('Products data:', response.data)
+      //console.log('Products data:', response.data)
     } catch (error) {
       console.error('Error fetching products data:', error)
     }
   }
+
+async function fetchProduct(product_id){
+  try{
+    const response = await api.get(`/products/${product_id}`)
+    console.log('Product data:', response.data)
+    return response.data
+
+  }catch(error){
+    console.error('Error fetching product data:', error)
+  }
+}
 
   onMounted(() => {
     fetchProducts()
