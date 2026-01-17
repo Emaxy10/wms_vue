@@ -5,6 +5,7 @@ import LoginPage from '@/pages/LoginPage.vue'
 import ProductsPage from '@/pages/ProductsPage.vue'
 import CreateProductPage from '@/pages/CreateProductPage.vue'
 import CreateStockMovementPage from '@/pages/CreateStockMovementPage.vue'
+import StockMovementPage from '@/pages/StockMovementPage.vue'
 
 const routes = [
   {
@@ -29,6 +30,10 @@ const routes = [
     path:'/stock-movements/create',
     name:'CreateStockMovementPage',
     component: CreateStockMovementPage
+  },{
+    path:'/stock-movements',
+    name:'StockMovementPage',
+    component: StockMovementPage
   }
 ]
 
