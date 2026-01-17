@@ -13,6 +13,15 @@
                 <h2 class="text-h5 font-medium">
                     Welcome to Your Vuetify 3 + Vite + Vue 3 Dashboard!
                 </h2>
+
+                //logout button
+                <v-btn
+                    color="error"
+                    size="small"
+                    class="ml-auto" 
+                    @click="logout"
+                        
+                >Logout</v-btn>
                 </template>
             </v-card>
             </v-col>
@@ -25,6 +34,11 @@
 <script setup>
     import { onMounted } from 'vue'
     import api from '@/plugins/api.js'
+    import { useRouter } from 'vue-router'
+    import { useAuthStore } from '@/plugins/stores/auth.js'
+
+    const router = useRouter()
+    const authStore = useAuthStore()
 
     onMounted(async () => {
         try {
@@ -34,4 +48,21 @@
             console.error('Error fetching dashboard data:', error)
         }
     })
+
+    async function logout() {
+        // try {
+        //     await api.post('/logout')
+        //     router.push('/login')
+        //     // Redirect to login page or show a message
+        // } catch (error) {
+        //     console.error('Error during logout:', error)
+        // }
+
+        try {
+            await authStore.logout()
+            router.push('/login')
+        } catch (error) {
+            console.error('Error during logout:', error)
+        }
+    }
 </script>

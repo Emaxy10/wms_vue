@@ -54,26 +54,39 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '@/plugins/api.js'
+import { useAuthStore } from '@/plugins/stores/auth.js'
+
+const authStore = useAuthStore()
 
 const router = useRouter()
 
 const email = ref('')
 const password = ref('')
 
-const handleLogin = () => {
-  api.get('/sanctum/csrf-cookie').then(() => {
-    api
-      .post('/login', {
-        email: email.value,
-        password: password.value,
-      })
-      .then(() => {
-        router.push({ name: 'Dashboard' })
-      })
-      .catch((error) => {
-        console.error('Login error:', error)
-        alert('Login failed. Please check your credentials.')
-      })
-  })
+const handleLogin = async() => {
+  // api.get('/sanctum/csrf-cookie').then(() => {
+  //   api
+  //     .post('/login', {
+  //       email: email.value,
+  //       password: password.value,
+  //     })
+  //     .then((response) => {
+  //       console.log('Login successful:', response.data)
+        
+  //       router.push({ name: 'Dashboard' })
+  //     })
+  //     .catch((error) => {
+  //       console.error('Login error:', error)
+  //       alert('Login failed. Please check your credentials.')
+  //     })
+  // })
+
+  try {
+    await authStore.login({ email: email.value, password: password.value })
+    router.push({ name: 'Dashboard' })
+  } catch (error) {
+    console.error('Login error:', error)
+    alert('Login failed. Please check your credentials.')
+  }
 }
 </script>

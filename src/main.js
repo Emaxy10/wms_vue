@@ -16,13 +16,17 @@ import { createApp } from 'vue'
 //router
 import router from './router'
 
+import { createPinia } from 'pinia'
+
 // Styles
 import 'unfonts.css'
 
 const app = createApp(App)
+const pinia = createPinia()
 
 registerPlugins(app)
 
 app.use(router)
+app.use(pinia)
 
 app.mount('#app')
