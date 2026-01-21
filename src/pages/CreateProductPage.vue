@@ -41,17 +41,32 @@
               />
             </v-col>
 
-            <!-- Reorder Level -->
-            <v-col cols="12" md="6">
-              <v-text-field
-                v-model="form.reorder_level"
-                label="Reorder Level"
-                type="number"
-                min="0"
-                :error="v$.reorder_level.$error"
-                :error-messages="v$.reorder_level.$errors.map(e => e.$message)"
-              />
-            </v-col>
+           <!-- Average Daily Sales -->
+          <v-col cols="12" md="6">
+            <v-text-field
+              v-model="form.average_daily_sales"
+              label="Average Daily Sales"
+              type="number"
+              min="0"
+              :error="v$.average_daily_sales.$error"
+              :error-messages="v$.average_daily_sales.$errors.map(e => e.$message)"
+              required
+            />
+          </v-col>
+
+    <!-- Supplier Lead Time -->
+    <v-col cols="12" md="6">
+      <v-text-field
+        v-model="form.supplier_lead_time"
+        label="Supplier Lead Time (Days)"
+        type="number"
+        min="0"
+        :error="v$.supplier_lead_time.$error"
+        :error-messages="v$.supplier_lead_time.$errors.map(e => e.$message)"
+        required
+      />
+    </v-col>
+
 
             <!-- Safety Stock -->
             <v-col cols="12" md="6">
@@ -103,10 +118,12 @@ const form = ref({
   name: '',
   description: '',
   category: '',
-  reorder_level: null,
+  average_daily_sales: null,
+  supplier_lead_time: null,
   safety_stock: null,
   unit: '',
 })
+
 
 const categories = ['Raw Material', 'Finished Goods', 'Consumables']
 const units = ['kg', 'Ltrs']
@@ -116,10 +133,12 @@ const rules = {
   name: { required },
   description: { required },
   category: { required },
-  reorder_level: { required, minValue: minValue(0) },
+  average_daily_sales: { required, minValue: minValue(0) },
+  supplier_lead_time: { required, minValue: minValue(0) },
   safety_stock: { required, minValue: minValue(0) },
   unit: { required },
 }
+
 
 // Initialize Vuelidate
 const v$ = useVuelidate(rules, form)
@@ -127,11 +146,13 @@ const v$ = useVuelidate(rules, form)
 const submitForm = async () => {
   const isValid = await v$.value.$validate()
   if (!isValid) {
-    console.log('Form is invalid')
+    console.log('Form is invalid', v$.value.$errors)
     return
   }
 
-  const productData = { ...form.value }
+
+
+  const productData = { ...form.value}
   try {
     const response = await api.post('/product/create', productData)
     console.log('Product created successfully:', response.data)
@@ -146,10 +167,12 @@ const resetForm = () => {
     name: '',
     description: '',
     category: '',
-    reorder_level: null,
+    average_daily_sales: null,
+    supplier_lead_time: null,
     safety_stock: null,
     unit: '',
   }
   v$.value.$reset()
 }
+
 </script>
