@@ -6,26 +6,49 @@ import ProductsPage from '@/pages/ProductsPage.vue'
 import CreateProductPage from '@/pages/CreateProductPage.vue'
 import CreateStockMovementPage from '@/pages/CreateStockMovementPage.vue'
 import StockMovementPage from '@/pages/StockMovementPage.vue'
+import AddPurchaseOrderPage from '@/pages/AddPurchaseOrderPage.vue'
+
+import MainLayout from '@/layouts/MainLayout.vue'
 
 const routes = [
+
+  // 👇 Redirect root ("/") to login page
+      {
+        path: '/',
+        redirect: '/login'
+      },
+
+
   {
-    path:'/',
-    name:'Dashboard',
-    component: Dashboard
+    path: '/',
+    component: MainLayout,
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: Dashboard
+      },{
+        path: 'products',
+        name: 'ProductsPage',
+        component: ProductsPage
+      },
+      {
+        path:'products/create',
+        name:'CreateProductPage',
+        component: CreateProductPage
+      }
+    ]
   },
+
+
+
+
+
+
   {
     path:'/login',
     name:'LoginPage',
     component: LoginPage
-  },{
-    path:'/products',
-    name:'ProductsPage',
-    component: ProductsPage
-  },
-  {
-    path:'/products/create',
-    name:'CreateProductPage',
-    component: CreateProductPage
   },{
     path:'/stock-movements/create',
     name:'CreateStockMovementPage',
@@ -34,6 +57,10 @@ const routes = [
     path:'/stock-movements',
     name:'StockMovementPage',
     component: StockMovementPage
+  },{
+    path:'/purchase-orders/add',  
+    name:'AddPurchaseOrderPage',
+    component: AddPurchaseOrderPage
   }
 ]
 

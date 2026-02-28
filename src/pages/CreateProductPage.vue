@@ -1,6 +1,5 @@
 <template>
-  <v-container>
-    <v-card elevation="2">
+     <v-card elevation="2" class="mx-auto  mt-4" max-width="1000">
       <v-card-title class="text-h6">Create Product</v-card-title>
       <v-divider />
 
@@ -105,7 +104,6 @@
         </v-form>
       </v-card-text>
     </v-card>
-  </v-container>
 </template>
 
 <script setup>

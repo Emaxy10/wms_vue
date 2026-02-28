@@ -1,5 +1,17 @@
 <template>
-  <v-table striped="even">
+  <v-card>
+    <v-card-title class="text-h6 d-flex align-center">
+       <span class="text-h6">Product List</span>
+      <v-spacer />
+      <!-- //button should be at far right -->
+      <v-btn color="primary" variant="outlined" :to="{ name: 'CreateProductPage' }">
+        <v-icon start>mdi-plus</v-icon>
+        Add Product
+      </v-btn>
+    </v-card-title>
+    <v-divider />
+    <v-card-text>
+       <v-table striped="even" max-width="800" class="mx-auto">
       <thead class="bg-deep-purple-accent-4 text-white">
       <tr>
         <th class="text-left">
@@ -49,6 +61,10 @@
       </tr>
     </tbody>
   </v-table>
+    </v-card-text>
+      
+  </v-card>
+ 
 
 
    <!-- PRODUCT INFO MODAL -->
