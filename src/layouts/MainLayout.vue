@@ -1,21 +1,6 @@
-<!-- <template>
-  <v-layout class="rounded rounded-md border">
-    <v-app-bar title="Application bar"></v-app-bar>
-
-    <v-navigation-drawer>
-      <v-list nav>
-        <v-list-item title="Navigation drawer" link></v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-main class="pb-16">
-        <router-view />
-    </v-main>
-  </v-layout>
-</template> -->
-
 <template>
   <v-app class="full-height">
+
     <v-app-bar app>
       Application bar
     </v-app-bar>
@@ -26,19 +11,22 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-main class="scrollable-main pb-16">
-      <router-view />
+    <v-main class="main-scroll">
+      <v-container fluid class="pa-4">
+        <router-view />
+      </v-container>
     </v-main>
+
   </v-app>
 </template>
 
 <style>
 .full-height {
-  height: 100vh; /* make Vuetify app take full viewport height */
+  height: 100vh;
 }
 
-/* Make only v-main scrollable */
-.scrollable-main {
+.main-scroll {
+  height: calc(100vh - 64px);
   overflow-y: auto;
 }
 </style>

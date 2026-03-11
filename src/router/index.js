@@ -36,32 +36,26 @@ const routes = [
         path:'products/create',
         name:'CreateProductPage',
         component: CreateProductPage
-      }
+      },
+      {
+        path:'purchase-orders/add',
+        name:'AddPurchaseOrderPage',
+        component: AddPurchaseOrderPage
+      },{
+          path:'/stock-movements/create',
+          name:'CreateStockMovementPage',
+          component: CreateStockMovementPage
+        },{
+          path:'/stock-movements',
+          name:'StockMovementPage',
+          component: StockMovementPage
+        }
     ]
   },
 
 
 
 
-
-
-  {
-    path:'/login',
-    name:'LoginPage',
-    component: LoginPage
-  },{
-    path:'/stock-movements/create',
-    name:'CreateStockMovementPage',
-    component: CreateStockMovementPage
-  },{
-    path:'/stock-movements',
-    name:'StockMovementPage',
-    component: StockMovementPage
-  },{
-    path:'/purchase-orders/add',  
-    name:'AddPurchaseOrderPage',
-    component: AddPurchaseOrderPage
-  }
 ]
 
 const router = createRouter({
