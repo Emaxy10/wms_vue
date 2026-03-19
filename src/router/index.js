@@ -7,6 +7,7 @@ import CreateProductPage from '@/pages/CreateProductPage.vue'
 import CreateStockMovementPage from '@/pages/CreateStockMovementPage.vue'
 import StockMovementPage from '@/pages/StockMovementPage.vue'
 import AddPurchaseOrderPage from '@/pages/AddPurchaseOrderPage.vue'
+import PurchaseOrdersPage from '@/pages/PurchaseOrdersPage.vue'
 
 import MainLayout from '@/layouts/MainLayout.vue'
 
@@ -14,8 +15,11 @@ const routes = [
 
   // 👇 Redirect root ("/") to login page
       {
-        path: '/',
-        redirect: '/login'
+        path: '/login',
+        name: 'Login',
+        component: LoginPage
+      
+        
       },
 
 
@@ -49,6 +53,10 @@ const routes = [
           path:'/stock-movements',
           name:'StockMovementPage',
           component: StockMovementPage
+        },{
+          path:'purchase-orders',
+          name:'PurchaseOrdersPage',
+          component: PurchaseOrdersPage
         }
     ]
   },
