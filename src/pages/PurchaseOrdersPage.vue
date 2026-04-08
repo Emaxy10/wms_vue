@@ -114,6 +114,14 @@
                   @click="viewPO(po.id)"
                 />
 
+                <!-- EDIT -->
+              <v-btn
+              icon="mdi-pencil"
+              variant="text"
+              color="blue"
+              @click="openEditModal(po)"
+              />
+
                 <!-- DELETE -->
                 <v-btn
                   icon="mdi-delete"
@@ -277,6 +285,43 @@
 
   </v-card>
 </v-dialog>
+
+
+
+<!-- EDIT PO MODAL -->
+<v-dialog v-model="showEditDialog" max-width="500">
+  <v-card>
+    <v-card-title class="bg-blue text-white">
+      Edit Purchase Order
+    </v-card-title>
+
+    <v-card-text>
+      <v-form>
+
+        <v-text-field
+          label="Product"
+          :model-value="editPO?.product?.name"
+          readonly
+        />
+
+        <!-- STATUS DROPDOWN -->
+        <v-select
+          v-model="editPO.status"
+          :items="['PENDING', 'RECEIVED', 'CANCELLED']"
+          label="Status"
+        />
+
+      </v-form>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-spacer />
+      <v-btn @click="showEditDialog = false">Cancel</v-btn>
+      <v-btn color="blue" @click="updatePO">Save</v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
+
 </template>
 
 <script setup>
@@ -288,6 +333,8 @@ import { required, numeric, minValue, helpers } from '@vuelidate/validators'
 
 const showGrn = ref(false)
 const selectedPOForGrn = ref(null)
+const showEditDialog = ref(false)
+const editPO = ref(null)
 
 const grnForm = ref({
    purchase_order_id: null,
@@ -309,6 +356,11 @@ const statusFilter = ref('ALL')
 const page = ref(1)
 const itemsPerPage = 10
 
+// Edit modal
+function openEditModal(po) {
+  editPO.value = { ...po } // clone
+  showEditDialog.value = true
+}
 
 
 //Custom validation rules
@@ -445,6 +497,24 @@ function openGrnModal(po) {
   }
 
   showGrn.value = true
+}
+
+// update satus
+async function updatePO() {
+  try {
+    await api.put(`/purchase-orders/${editPO.value.id}`, {
+      status: editPO.value.status
+    })
+
+    alert('Purchase Order updated successfully')
+
+    showEditDialog.value = false
+    fetchPurchaseOrders()
+
+  } catch (err) {
+    console.error(err)
+    alert('Failed to update PO')
+  }
 }
 
 //submit grn

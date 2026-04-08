@@ -11,7 +11,7 @@
             >
                 <template #title>
                 <h2 class="text-h5 font-medium">
-                    Welcome to Your Vuetify 3 + Vite + Vue 3 Dashboard!
+                    Welcome back, {{ user.name }}! 
                 </h2>
 
                 //logout button
@@ -33,19 +33,22 @@
 
 <script setup>
     import { onMounted } from 'vue'
-    import api from '@/plugins/api.js'
+    //import api from '@/plugins/api.js'
     import { useRouter } from 'vue-router'
     import { useAuthStore } from '@/plugins/stores/auth.js'
 
     const router = useRouter()
     const authStore = useAuthStore()
+    const user = authStore.user
 
-    onMounted(async () => {
+    onMounted(() => {
         try {
-            const response = await api.get('/products')
-            console.log('Dashboard data:', response.data)
+            if (!user) {
+                router.push('/login')
+            }
         } catch (error) {
-            console.error('Error fetching dashboard data:', error)
+            console.error('Error fetching user data:', error)
+            router.push('/login')
         }
     })
 

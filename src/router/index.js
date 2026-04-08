@@ -8,6 +8,7 @@ import CreateStockMovementPage from '@/pages/CreateStockMovementPage.vue'
 import StockMovementPage from '@/pages/StockMovementPage.vue'
 import AddPurchaseOrderPage from '@/pages/AddPurchaseOrderPage.vue'
 import PurchaseOrdersPage from '@/pages/PurchaseOrdersPage.vue'
+import CreateUserPage from '@/pages/CreateUserPage.vue'
 
 import MainLayout from '@/layouts/MainLayout.vue'
 
@@ -57,6 +58,10 @@ const routes = [
           path:'purchase-orders',
           name:'PurchaseOrdersPage',
           component: PurchaseOrdersPage
+        },{
+          path:'/users/create',
+          name:'CreateUserPage',
+          component: CreateUserPage
         }
     ]
   },

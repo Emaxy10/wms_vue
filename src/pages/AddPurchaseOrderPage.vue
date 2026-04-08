@@ -215,6 +215,11 @@ import { ref, onMounted, computed } from 'vue'
 import api from '@/plugins/api.js'
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
+import { useAuthStore } from '@/plugins/stores/auth.js'
+
+
+  const authStore = useAuthStore()
+    const user = authStore.user
 
 
 const showDialog = ref(false)
@@ -224,6 +229,15 @@ const search = ref('')
 const selectedProductName = ref('')
 const selectedClientName = ref('')
 const selectedWarehouseName = ref('')
+
+//check if user is logged in
+onMounted(() => {
+  if (!user) {
+    router.push('/login') 
+  }else{
+    console.log('User data:', user)
+  }
+})
 
 /* Form */
 const form = ref({
