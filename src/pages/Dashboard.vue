@@ -11,7 +11,7 @@
             >
                 <template #title>
                 <h2 class="text-h5 font-medium">
-                    Welcome back, {{ user.name }}! 
+                    Welcome back, {{ user?.name }}! 
                 </h2>
 
                 //logout button
@@ -33,39 +33,30 @@
 
 <script setup>
     import { onMounted } from 'vue'
-    //import api from '@/plugins/api.js'
-    import { useRouter } from 'vue-router'
-    import { useAuthStore } from '@/plugins/stores/auth.js'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/plugins/stores/auth.js'
+import { storeToRefs } from 'pinia'
 
-    const router = useRouter()
-    const authStore = useAuthStore()
-    const user = authStore.user
+const router = useRouter()
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
 
-    onMounted(() => {
-        try {
-            if (!user) {
-                router.push('/login')
-            }
-        } catch (error) {
-            console.error('Error fetching user data:', error)
-            router.push('/login')
-        }
-    })
+// onMounted(async () => {
+//   try {
+//     if (!authStore.user) {
+//       await authStore.fetchUser()
+//     }
 
-    async function logout() {
-        // try {
-        //     await api.post('/logout')
-        //     router.push('/login')
-        //     // Redirect to login page or show a message
-        // } catch (error) {
-        //     console.error('Error during logout:', error)
-        // }
+//     if (!authStore.user) {
+//       router.push('/login')
+//     }
+//   } catch {
+//     router.push('/login')
+//   }
+// })
 
-        try {
-            await authStore.logout()
-            router.push('/login')
-        } catch (error) {
-            console.error('Error during logout:', error)
-        }
-    }
+async function logout() {
+  await authStore.logout()
+  router.push('/login')
+}
 </script>

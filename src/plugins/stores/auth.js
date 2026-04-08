@@ -25,8 +25,17 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async fetchUser() {
+      try {
       const res = await api.get('/user')
       this.user = res.data
+    } catch (error) {
+    if (error.response?.status === 401) {
+      this.user = null
+    } else {
+      console.error('Unexpected error:', error)
+    }
+      throw error
+    }
     },
 
     async logout() {

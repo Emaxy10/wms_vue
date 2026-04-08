@@ -8,16 +8,21 @@
   import { useAuthStore } from '@/plugins/stores/auth.js'
   import { onMounted } from 'vue'
 
-  const authStore = useAuthStore()
-  onMounted(() => {
-    authStore.fetchUser().catch(() => {
-      // User is not authenticated, you can handle it here if needed
-     authStore.user = null
+import { useRouter } from 'vue-router'
 
-    if (route.path !== '/login') {
-      window.location.href = '/login'
-    }
-    })
-  })
+
+    const route = useRouter()
+
+  const authStore = useAuthStore()
+  // onMounted(() => {
+  //   authStore.fetchUser().catch(() => {
+  //     // User is not authenticated, you can handle it here if needed
+  //    authStore.user = null
+
+  //   if (route.path !== '/login') {
+  //     window.location.href = '/login'
+  //   }
+  //   })
+  // })
  
 </script>
