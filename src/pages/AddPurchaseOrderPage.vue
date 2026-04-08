@@ -221,6 +221,8 @@ import { useAuthStore } from '@/plugins/stores/auth.js'
   const authStore = useAuthStore()
     const user = authStore.user
 
+  console.log(user)
+
 
 const showDialog = ref(false)
 const dialogType = ref('')
