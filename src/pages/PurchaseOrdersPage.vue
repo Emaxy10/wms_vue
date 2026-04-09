@@ -248,11 +248,20 @@
 
           <!-- RECEIVED BY -->
           <v-col cols="12" md="6">
-            <v-text-field
+            <v-autocomplete
               label="Received By"
               v-model="grnForm.received_by"
+              :items="filteredUsers"
+              item-title="name"
+              item-value="id"
+              :search-input.sync="userSearch"
+              clearable
+              return-object
+              :menu-props="{ maxHeight: 300 }"
+              :filter="customFilter"
+              :items-per-page="5"
               required
-            />
+          />
           </v-col>
 
           <!-- REMARKS -->
@@ -329,12 +338,18 @@ import { ref, computed, onMounted } from 'vue'
 import api from '@/plugins/api.js'
 import useVuelidate from '@vuelidate/core'
 import { required, numeric, minValue, helpers } from '@vuelidate/validators'
+ import { useAuthStore } from '@/plugins/stores/auth.js'
 
-
+const authStore = useAuthStore()
 const showGrn = ref(false)
 const selectedPOForGrn = ref(null)
 const showEditDialog = ref(false)
 const editPO = ref(null)
+const warehouseUsersList = ref([])
+
+const currentUser = computed(() => authStore.user)
+
+
 
 const grnForm = ref({
    purchase_order_id: null,
@@ -539,6 +554,38 @@ async function submitGrn() {
     alert('Failed to create GRN')
   }
 }
+
+async function warehouseUsers(){
+  const res = await api.get('warehouses/users')
+  // console.log(res.data)
+  warehouseUsersList.value = res.data
+}
+
+const userSearch = ref('')
+
+// limit to 5 + search
+function customFilter(item, queryText) {
+  if (!queryText) return true
+
+  return item.raw.name.toLowerCase().includes(queryText.toLowerCase())
+}
+
+//enforce max items in dropdown, so we control it manually
+const filteredUsers = computed(() => {
+  if (!userSearch.value) {
+    return warehouseUsersList.value.slice(0, 5)
+  }
+
+  return warehouseUsersList.value
+    .filter(user =>
+      user.name.toLowerCase().includes(userSearch.value.toLowerCase())
+    )
+    .slice(0, 5)
+})
+
+grnForm.value.received_by = currentUser.id
+
+onMounted(warehouseUsers)
 
 onMounted(fetchPurchaseOrders)
 </script>
