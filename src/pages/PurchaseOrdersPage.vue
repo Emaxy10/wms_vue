@@ -1,4 +1,22 @@
 <template>
+  <v-snackbar
+  v-model="showStockToast"
+  location="top right"
+  timeout="5000"
+  color="success"
+  elevation="24"
+>
+  <v-icon start>mdi-check-circle</v-icon>
+  {{ stockToastMessage }}
+
+  <template #actions>
+    <v-btn color="white" variant="text" @click="goToStockDetails">
+      View Details
+    </v-btn>
+  </template>
+</v-snackbar>
+
+
   <v-card>
     <!-- HEADER -->
     <v-card-title class="d-flex align-center">
@@ -256,7 +274,6 @@
               item-value="id"
               :search-input.sync="userSearch"
               clearable
-              return-object
               :menu-props="{ maxHeight: 300 }"
               :filter="customFilter"
               :items-per-page="5"
@@ -339,6 +356,9 @@ import api from '@/plugins/api.js'
 import useVuelidate from '@vuelidate/core'
 import { required, numeric, minValue, helpers } from '@vuelidate/validators'
  import { useAuthStore } from '@/plugins/stores/auth.js'
+ import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const authStore = useAuthStore()
 const showGrn = ref(false)
@@ -348,6 +368,10 @@ const editPO = ref(null)
 const warehouseUsersList = ref([])
 
 const currentUser = computed(() => authStore.user)
+
+const showStockToast = ref(false)
+const stockToastMessage = ref('')
+const stockToastPO = ref(null)
 
 
 
@@ -497,7 +521,7 @@ function downloadFile(id) {
   window.open(`${baseURL}/purchase-orders/${id}/download-file`, '_blank')
 }
 
-
+// GRN MODAL
 function openGrnModal(po) {
   selectedPOForGrn.value = po
 
@@ -507,7 +531,7 @@ function openGrnModal(po) {
     quantity_received: po.quantity_ordered, // default
     quantity_rejected: 0,
     received_date: new Date().toISOString().substr(0, 10),
-    received_by: '',
+    received_by: currentUser.value?.id || null,
     remarks: ''
   }
 
@@ -544,10 +568,16 @@ async function submitGrn() {
   }
     await api.post('/grn/create', grnForm.value)
 
-    alert('GRN created successfully')
+    // Show toast instead of alert
+      stockToastPO.value = selectedPOForGrn.value
+
+      stockToastMessage.value = `Stock movement for PO ${selectedPOForGrn.value.code} created`
+
+      showStockToast.value = true
 
     showGrn.value = false
     fetchPurchaseOrders()
+    
 
   } catch (err) {
     console.error(err)
@@ -583,7 +613,20 @@ const filteredUsers = computed(() => {
     .slice(0, 5)
 })
 
-grnForm.value.received_by = currentUser.id
+//view stockmovement details from toast
+function goToStockDetails() {
+  if (!stockToastPO.value) return
+
+  router.push({
+    name: 'StockMovementPage', // make sure this route exists
+    query: {
+      po_code: stockToastPO.value.code
+    }
+  })
+
+  showStockToast.value = false
+}
+
 
 onMounted(warehouseUsers)
 
