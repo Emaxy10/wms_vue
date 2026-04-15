@@ -11,6 +11,10 @@ import StockMovementPage from '@/pages/StockMovementPage.vue'
 import AddPurchaseOrderPage from '@/pages/AddPurchaseOrderPage.vue'
 import PurchaseOrdersPage from '@/pages/PurchaseOrdersPage.vue'
 import CreateUserPage from '@/pages/CreateUserPage.vue'
+import Suppliers from '@/pages/Suppliers.vue'
+import Clients from '@/pages/Clients.vue'
+import Users from '@/pages/Users.vue'
+import Warehouses from '@/pages/Warehouses.vue'
 
 // Layout
 import MainLayout from '@/layouts/MainLayout.vue'
@@ -37,43 +41,62 @@ const routes = [
     children: [
       {
         path: 'dashboard',
-        name: 'Dashboard',
+        name: 'dashboard',
         component: Dashboard
       },
       {
         path: 'products',
-        name: 'ProductsPage',
+        name: 'products',
         component: ProductsPage
       },
       {
         path: 'products/create',
-        name: 'CreateProductPage',
+        name: 'create-product',
         component: CreateProductPage
       },
       {
         path: 'purchase-orders/add',
-        name: 'AddPurchaseOrderPage',
+        name: 'add-purchase-order',
         component: AddPurchaseOrderPage
       },
       {
         path: 'stock-movements/create',
-        name: 'CreateStockMovementPage',
+        name: 'create-stock-movement',
         component: CreateStockMovementPage
       },
       {
         path: 'stock-movements',
-        name: 'StockMovementPage',
+        name: 'stock-movements',
         component: StockMovementPage
       },
       {
         path: 'purchase-orders',
-        name: 'PurchaseOrdersPage',
+        name: 'purchase-orders',
         component: PurchaseOrdersPage
       },
       {
         path: 'users/create',
-        name: 'CreateUserPage',
+        name: 'create-user',
         component: CreateUserPage
+      },{
+        path: 'suppliers',
+        name: 'suppliers',
+        component: Suppliers
+      },
+      {
+        path: 'clients',
+        name: 'clients',
+        component: Clients
+      },
+      {
+        path: 'users',
+        name: 'users',
+        component: Users
+      },
+      {
+        path: 'warehouses',
+        name: 'warehouses',
+        component: Warehouses
       }
     ]
   }

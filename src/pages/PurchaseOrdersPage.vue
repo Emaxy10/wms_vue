@@ -19,16 +19,19 @@
 
   <v-card>
     <!-- HEADER -->
-    <v-card-title class="d-flex align-center">
+    <v-card-title class="d-flex align-center bg-deep-purple-accent-4 text-white">
       <span class="text-h6">Purchase Orders</span>
       <v-spacer />
 
       <v-btn
-        color="primary"
+        class="bg-white"
+        color="black"
         variant="outlined"
-        :to="{ name: 'AddPurchaseOrderPage' }"
+        :to="{ name: 'add-purchase-order' }"
       >
-        <v-icon start>mdi-plus</v-icon>
+        <v-icon 
+        color=""
+        start>mdi-plus</v-icon>
         Add Purchase Order
       </v-btn>
     </v-card-title>
