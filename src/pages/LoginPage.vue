@@ -83,7 +83,7 @@ const handleLogin = async() => {
 
   try {
     await authStore.login({ email: email.value, password: password.value })
-    router.push({ name: 'Dashboard' })
+    router.push({ name: 'dashboard' })
   } catch (error) {
     console.error('Login error:', error)
     alert('Login failed. Please check your credentials.')

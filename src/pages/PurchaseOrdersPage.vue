@@ -108,7 +108,7 @@
                 icon="mdi-check"
                 variant="text"
                 color="green"
-                :disabled="po.is_approved || po.processing"
+                :disabled="po?.is_approved || po?.processing"
                 @click="confirmApprove(po)"
               />
             </td>
@@ -119,7 +119,7 @@
                 icon="mdi-close"
                 variant="text"
                 color="red"
-                :disabled="!po.is_approved || po.processing"
+                :disabled="!po?.is_approved || po?.processing"
                 @click="confirmReject(po)"
               />
             </td>
@@ -162,7 +162,7 @@
                       variant="outlined"
                       color="blue"
                       size="small"
-                      :disabled="!po.is_approved"
+                      :disabled="!po?.is_approved"
                       @click="openGrnModal(po)"
                     />
                   </template>

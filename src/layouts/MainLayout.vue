@@ -1,17 +1,70 @@
 <script setup>
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/plugins/stores/auth.js'
+import { storeToRefs } from 'pinia'
+
+const router = useRouter()
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
+
+async function logout() {
+  await authStore.logout()
+  router.push('/login')
+}
 </script>
 
 <template>
   <v-app class="full-height">
 
     <!-- Top Bar -->
-    <v-app-bar app>
-      Application bar
-    </v-app-bar>
+    <v-app-bar app color="deep-purple-accent-4  " theme="dark">
+
+  <!-- Left: App Name -->
+  <v-toolbar-title class="font-weight-bold">
+    WMS
+  </v-toolbar-title>
+
+  <v-spacer />
+
+  <!-- Right: Profile Menu -->
+  <v-menu offset-y>
+    <template #activator="{ props }">
+      <v-btn icon v-bind="props">
+        <v-icon>mdi-account-circle</v-icon>
+      </v-btn>
+    </template>
+
+    <v-card min-width="200">
+      
+      <!-- User Info -->
+      <v-list>
+        <v-list-item>
+          <v-list-item-title class="font-weight-medium">
+            {{ user?.name }}
+          </v-list-item-title>
+        </v-list-item>
+
+        <v-divider />
+
+        <!-- Logout -->
+        <v-list-item @click="logout" link>
+          <v-list-item-title>
+            <v-icon start color="error">mdi-logout</v-icon>
+            Logout
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+
+    </v-card>
+  </v-menu>
+
+</v-app-bar>
 
     <!-- Sidebar -->
-    <v-navigation-drawer app color="deep-purple-accent-4  " dark>
-      <v-list nav density="compact">
+    <v-navigation-drawer app color="" dark>
+      <v-list 
+        color="deep-purple-accent-4  "
+      nav density="compact">
 
         <v-list-item
           title="Dashboard"

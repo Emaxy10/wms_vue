@@ -4,7 +4,7 @@
        <span class="text-h6">Product List</span>
       <v-spacer />
       <!-- //button should be at far right -->
-      <v-btn color="primary" variant="outlined" :to="{ name: 'CreateProductPage' }">
+      <v-btn color="primary" variant="outlined" :to="{ name: 'create-product' }">
         <v-icon start>mdi-plus</v-icon>
         Add Product
       </v-btn>
