@@ -69,7 +69,7 @@
             <th>Warehouse</th>
             <th>Qty</th>
             <th>Status</th>
-            <th>Approved</th>
+            <!-- <th>Approved</th> -->
             <th>Order Date</th>
             <th class="text-center">Approve</th>
             <th class="text-center">Reject</th>
@@ -94,35 +94,55 @@
               </v-chip>
             </td>
 
-            <td>
+            <!-- <td>
               <v-chip size="small" :color="po.is_approved ? 'green' : 'red'">
                 {{ po.is_approved ? 'Approved' : 'Pending' }}
               </v-chip>
-            </td>
+            </td> -->
 
             <td>{{ formatDate(po.order_date) }}</td>
 
-            <!-- APPROVE -->
-            <td class="text-center">
+          <td class="text-center">
+
+  <!-- APPROVED -->
+  <v-chip
+    v-if="po?.is_approved"
+    color="green"
+    text-color="white"
+    variant="flat"
+  >
+    Approved
+  </v-chip>
+
+  <!-- REJECTED -->
+  <v-chip
+    v-else-if="po?.is_rejected"
+    color="red"
+    text-color="white"
+    variant="flat"
+  >
+    Rejected
+  </v-chip>
+
+            <!-- ACTION BUTTONS -->
+            <div v-else class="d-flex justify-center">
               <v-btn
                 icon="mdi-check"
                 variant="text"
                 color="green"
-                :disabled="po?.is_approved || po?.processing"
                 @click="confirmApprove(po)"
               />
-            </td>
-
-            <!-- REJECT -->
-            <td class="text-center">
               <v-btn
                 icon="mdi-close"
                 variant="text"
                 color="red"
-                :disabled="!po?.is_approved || po?.processing"
                 @click="confirmReject(po)"
               />
-            </td>
+            </div>
+
+          </td>
+
+       
 
             <!-- ACTIONS -->
             <td>
@@ -369,6 +389,7 @@ const selectedPOForGrn = ref(null)
 const showEditDialog = ref(false)
 const editPO = ref(null)
 const warehouseUsersList = ref([])
+
 
 const currentUser = computed(() => authStore.user)
 
