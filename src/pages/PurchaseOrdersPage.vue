@@ -72,7 +72,7 @@
             <!-- <th>Approved</th> -->
             <th>Order Date</th>
             <th class="text-center">Approve</th>
-            <th class="text-center">Reject</th>
+          
             <th>Actions</th>
           </tr>
         </thead>
@@ -182,7 +182,7 @@
                       variant="outlined"
                       color="blue"
                       size="small"
-                      :disabled="!po?.is_approved"
+                      :disabled="!po?.is_approved||po?.status==='PENDING'"
                       @click="openGrnModal(po)"
                     />
                   </template>
@@ -403,7 +403,7 @@ const grnForm = ref({
    purchase_order_id: null,
   purchase_order_code: null,
   quantity_received: '',
-  quantity_rejected: '',
+  quantity_rejected: 0,
   received_date: '',
   received_by: '',
   remarks: ''
