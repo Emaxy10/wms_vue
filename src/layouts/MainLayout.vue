@@ -61,62 +61,80 @@ async function logout() {
 </v-app-bar>
 
     <!-- Sidebar -->
-    <v-navigation-drawer app color="" dark>
-      <v-list 
-        color="deep-purple-accent-4  "
-      nav density="compact">
+   <v-navigation-drawer app color="white" theme="dark">
+  <v-list nav density="compact">
 
-        <v-list-item
-          title="Dashboard"
-          prepend-icon="mdi-view-dashboard"
-          :to="{ name: 'dashboard' }"
-          link
-        />
+    <!-- Dashboard -->
+    <v-list-item
+      title="Dashboard"
+      prepend-icon="mdi-view-dashboard"
+      :to="{ name: 'dashboard' }"
+      link
+    />
 
-        <v-list-item
-          title="Purchase Orders"
-          prepend-icon="mdi-file-document-outline"
-          :to="{ name: 'purchase-orders' }"
-          link
-        />
+    <!-- Operations -->
+    <v-subheader>Operations</v-subheader>
 
-        <v-list-item
-          title="Products"
-          prepend-icon="mdi-cube-outline"
-          :to="{ name: 'products' }"
-          link
-        />
+    <v-list-item
+      title="Purchase Orders"
+      prepend-icon="mdi-file-document-outline"
+      :to="{ name: 'purchase-orders' }"
+      link
+    />
 
-        <v-list-item
-          title="Warehouses"
-          prepend-icon="mdi-warehouse"
-          :to="{ name: 'warehouses' }"
-          link
-        />
+    <v-list-item
+      title="Put-away"
+      prepend-icon="mdi-arrow-collapse-down"
+      :to="{ name: 'putaway' }"
+      link
+    />
 
-        <v-list-item
-          title="Suppliers"
-          prepend-icon="mdi-truck-delivery-outline"
-          :to="{ name: 'suppliers' }"
-          link
-        />
+    <!-- Inventory -->
+    <v-subheader>Inventory</v-subheader>
 
-        <v-list-item
-          title="Clients"
-          prepend-icon="mdi-account-group-outline"
-          :to="{ name: 'clients' }"
-          link
-        />
+    <v-list-item
+      title="Products"
+      prepend-icon="mdi-cube-outline"
+      :to="{ name: 'products' }"
+      link
+    />
 
-        <v-list-item
-          title="Users"
-          prepend-icon="mdi-account-outline"
-          :to="{ name: 'users' }"
-          link
-        />
+    <v-list-item
+      title="Warehouses"
+      prepend-icon="mdi-warehouse"
+      :to="{ name: 'warehouses' }"
+      link
+    />
 
-      </v-list>
-    </v-navigation-drawer>
+    <!-- Partners -->
+    <v-subheader>Partners</v-subheader>
+
+    <v-list-item
+      title="Suppliers"
+      prepend-icon="mdi-truck-delivery-outline"
+      :to="{ name: 'suppliers' }"
+      link
+    />
+
+    <v-list-item
+      title="Clients"
+      prepend-icon="mdi-account-group-outline"
+      :to="{ name: 'clients' }"
+      link
+    />
+
+    <!-- Admin -->
+    <v-subheader>Admin</v-subheader>
+
+    <v-list-item
+      title="Users"
+      prepend-icon="mdi-account-outline"
+      :to="{ name: 'users' }"
+      link
+    />
+
+  </v-list>
+</v-navigation-drawer>
 
     <!-- Main Content -->
     <v-main class="main-scroll">

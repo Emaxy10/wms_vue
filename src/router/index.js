@@ -15,6 +15,7 @@ import Suppliers from '@/pages/Suppliers.vue'
 import Clients from '@/pages/Clients.vue'
 import Users from '@/pages/Users.vue'
 import Warehouses from '@/pages/Warehouses.vue'
+import PutAwayPage from '@/pages/PutAwayPage.vue'
 
 // Layout
 import MainLayout from '@/layouts/MainLayout.vue'
@@ -97,6 +98,11 @@ const routes = [
         path: 'warehouses',
         name: 'warehouses',
         component: Warehouses
+      },
+      {
+        path: 'putaway',
+        name: 'putaway',
+        component: PutAwayPage
       }
     ]
   }
