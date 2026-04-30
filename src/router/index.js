@@ -16,6 +16,8 @@ import Clients from '@/pages/Clients.vue'
 import Users from '@/pages/Users.vue'
 import Warehouses from '@/pages/Warehouses.vue'
 import PutAwayPage from '@/pages/PutAwayPage.vue'
+import StartPutAway from '@/pages/StartPutAway.vue'
+import WareHouseStructurePage from '@/pages/WareHouseStructurePage.vue'
 
 // Layout
 import MainLayout from '@/layouts/MainLayout.vue'
@@ -103,6 +105,14 @@ const routes = [
         path: 'putaway',
         name: 'putaway',
         component: PutAwayPage
+      },{
+        path: 'putaway/start',
+        name: 'start-putaway',
+        component: StartPutAway
+      },{
+        path: 'warehouse-structure',
+        name: 'warehouse-structure',
+        component: WareHouseStructurePage
       }
     ]
   }
