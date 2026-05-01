@@ -201,6 +201,8 @@ const newBin = ref({
   capacity: 0,
 });
 
+// Fetch zones with racks and bins
+
 /* ================= COMPUTED: FILTERS ================= */
 const filteredRacks = computed(() => {
   if (!selectedZone.value) return [];
@@ -249,8 +251,10 @@ const createZone = async () => {
   try {
     const res = await api.post("/zone/create", {
       description: newZone.value.name,
-      ware_house_id: newZone.value.warehouseId,
+      warehouse_id: newZone.value.warehouseId,
     });
+
+    zone.value = res.data;
     
     zones.value.push({
       ...res.data,
